@@ -6,7 +6,7 @@ import {
   DatabaseModule,
   LoggerModule,
   AUTH_SERVICE,
-  PAYMENTS_SERVICE,
+  HOTELS_SERVICE,
   HealthModule,
 } from '@app/common';
 import { ReservationsRepository } from './reservations.repository';
@@ -48,12 +48,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         inject: [ConfigService],
       },
       {
-        name: PAYMENTS_SERVICE,
+        name: HOTELS_SERVICE,
         useFactory: (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: configService.get('PAYMENTS_HOST'),
-            port: configService.get('PAYMENTS_PORT'),
+            host: configService.get('HOTELS_HOST'),
+            port: configService.get('HOTELS_PORT'),
           },
         }),
         inject: [ConfigService],
