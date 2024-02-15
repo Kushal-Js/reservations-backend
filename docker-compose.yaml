@@ -1,4 +1,15 @@
+version: '3.3'
 services:
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    volumes:
+      - ./usr/local/var/mongodb:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - nesjs-network
+    restart: always
   reservations:
     build:
       context: .
@@ -9,8 +20,13 @@ services:
       - ./apps/reservations/.env
     ports:
       - '3000:3000'
+    networks:
+      - nesjs-network
+    depends_on:
+      - mongodb
     volumes:
       - .:/usr/src/app
+    restart: unless-stopped
   auth:
     build:
       context: .
@@ -21,7 +37,13 @@ services:
       - ./apps/auth/.env
     ports:
       - '3001:3001'
+    networks:
+      - nesjs-network
+    depends_on:
+      - mongodb
     volumes:
       - .:/usr/src/app
-  mongo:
-    image: mongo
+    restart: unless-stopped
+networks:
+    nesjs-network:
+      driver: bridge
