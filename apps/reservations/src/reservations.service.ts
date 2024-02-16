@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PAYMENTS_SERVICE, UserDto } from '@app/common';
+import { HOTELS_SERVICE, UserDto } from '@app/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
@@ -10,15 +10,15 @@ import { map } from 'rxjs';
 export class ReservationsService {
   constructor(
     private readonly reservationsRepository: ReservationsRepository,
-    @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
+    @Inject(HOTELS_SERVICE) private readonly hotelsService: ClientProxy,
   ) {}
 
   async create(
     createReservationDto: CreateReservationDto,
     { email, _id: userId }: UserDto,
   ) {
-    return this.paymentsService
-      .send('create_charge', {
+    return this.hotelsService
+      .send('get_details', {
         ...createReservationDto.charge,
         email,
       })
