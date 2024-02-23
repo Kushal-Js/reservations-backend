@@ -44,6 +44,23 @@ services:
     volumes:
       - .:/usr/src/app
     restart: unless-stopped
+  hotels:
+    build:
+      context: .
+      dockerfile: ./apps/hotels/Dockerfile
+      target: development
+    command: pnpm run start:dev hotels
+    env_file:
+      - ./apps/hotels/.env
+    ports:
+      - '3002:3002'
+    networks:
+      - nesjs-network
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+    restart: unless-stopped
 networks:
     nesjs-network:
       driver: bridge
