@@ -6,19 +6,19 @@ export type HotelDocument = Hotel & Document;
 @Schema()
 export class Hotel {
   @Prop()
-  userId: string;
+  hotelId: string;
 
   @Prop()
-  email: string;
+  hotelName: string;
 
   @Prop()
-  password: string;
+  address: string;
 
   @Prop()
-  age: number;
+  reservationId: string;
 
-  @Prop([String])
-  favoriteFoods: string[];
+  @Prop()
+  booked: boolean;
 }
 
 export const HotelSchema = SchemaFactory.createForClass(Hotel);

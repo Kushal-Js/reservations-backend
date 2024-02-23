@@ -15,18 +15,18 @@ export class ReservationsService {
 
   async create(
     createReservationDto: CreateReservationDto,
-    { email, _id: userId }: UserDto,
+    { _id: userId }: UserDto,
   ) {
+    const hotelId = createReservationDto.hotelId;
     return this.hotelsService
-      .send('get_details', {
-        ...createReservationDto.charge,
-        email,
+      .send('book_hotel', {
+        hotelId,
       })
       .pipe(
         map((res) => {
           return this.reservationsRepository.create({
             ...createReservationDto,
-            invoiceId: res.id,
+            reservationId: res.reservationId,
             timestamp: new Date(),
             userId,
           });

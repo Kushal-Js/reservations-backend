@@ -1,9 +1,8 @@
 import { Type } from 'class-transformer';
 import { IsDate } from 'class-validator';
 
-export class CreateReservationDto {
+export class CompDataDto {
   hotelId: string;
-  reservationId: string;
   @IsDate()
   @Type(() => Date)
   startDate: Date;

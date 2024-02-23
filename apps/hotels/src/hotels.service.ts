@@ -1,42 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { HotelsDto } from './dto/hotels.dto';
-import { Hotel, HotelSchema } from './schemas/hotels.schema';
+import { UpdateHotelDto } from './dto/update-hotel.dto';
+import { Hotel } from './schemas/hotels.schema';
 import { HotelsRepository } from './hotels.repository';
-// import * as bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class HotelsService {
   constructor(private readonly hotelsRepository: HotelsRepository) {}
 
-  async getUserById(userId: string): Promise<Hotel> {
-    return this.hotelsRepository.findOne({ userId });
+  async getHotelById(hotelId: string): Promise<Hotel> {
+    return this.hotelsRepository.findOne({ hotelId });
   }
 
-  async getUserByName(name: string): Promise<Hotel> {
-    return this.hotelsRepository.findOne({ name });
+  async getHotelByName(hotelName: string): Promise<Hotel> {
+    return this.hotelsRepository.findOne({ hotelName });
   }
 
-  async getUsers(): Promise<Hotel[]> {
+  async getHotelList(): Promise<Hotel[]> {
     return this.hotelsRepository.find({});
   }
 
-  // async createUser(email: string, password: string): Promise<User> {
-  //   const saltOrRounds = 10;
-  //   const hashedPassword =
-  //     password === undefined
-  //       ? 'test'
-  //       : await bcrypt.hash(password, saltOrRounds);
-  //   return this.usersRepository.create({
-  //     userId: uuidv4(),
-  //     email,
-  //     password: hashedPassword,
-  //     age: 30,
-  //     favoriteFoods: [],
-  //   });
-  // }
+  async createHotel(hotelsDto: HotelsDto): Promise<Hotel> {
+    return this.hotelsRepository.create(hotelsDto);
+  }
 
-  // async updateUser(userId: string, userUpdates: UpdateUserDto): Promise<User> {
-  //   return this.usersRepository.findOneAndUpdate({ userId }, userUpdates);
-  // }
-
+  async bookHotel(
+    hotelId: string,
+    updateHotelDto: UpdateHotelDto,
+  ): Promise<Hotel> {
+    updateHotelDto.reservationId = uuidv4();
+    return this.hotelsRepository.findOneAndUpdate(hotelId, updateHotelDto);
+  }
 }

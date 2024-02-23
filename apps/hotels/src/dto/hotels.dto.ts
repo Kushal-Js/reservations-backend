@@ -1,9 +1,11 @@
-import { IsEmail, IsString } from 'class-validator';
-
 export class HotelsDto {
-  @IsEmail()
-  email: string;
+  hotelId: string;
 
-  @IsString()
-  text: string;
+  hotelName: string;
+
+  address: string;
+
+  reservationId: string;
+
+  booked: boolean;
 }

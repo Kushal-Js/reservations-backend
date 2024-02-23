@@ -23,12 +23,7 @@ export class HotelsRepository {
     return newHotel.save();
   }
 
-  async findOneAndUpdate(
-    userFilterQuery: FilterQuery<Hotel>,
-    hotel: Partial<Hotel>,
-  ): Promise<Hotel> {
-    return this.hotelModel.findOneAndUpdate(userFilterQuery, hotel, {
-      new: true,
-    });
+  async findOneAndUpdate(_id: string, hotel: Partial<Hotel>): Promise<Hotel> {
+    return this.hotelModel.findOneAndUpdate({ _id }, hotel);
   }
 }
