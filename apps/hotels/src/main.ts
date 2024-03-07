@@ -1,7 +1,9 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { HotelsModule } from './hotels.module';
 import { ConfigService } from '@nestjs/config';
 import { Transport } from '@nestjs/microservices';
+import * as cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
@@ -11,10 +13,13 @@ async function bootstrap() {
     transport: Transport.TCP,
     options: {
       host: '0.0.0.0',
-      port: configService.get('PORT'),
+      port: configService.get('TCP_HOTELS_PORT'),
     },
   });
+  app.use(cookieParser());
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
   await app.startAllMicroservices();
+  await app.listen(configService.get('HTTP_HOTELS_PORT'));
 }
 bootstrap();

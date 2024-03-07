@@ -1,10 +1,8 @@
+import { AbstractDocument } from '@app/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
-export type HotelDocument = Hotel & Document;
-
-@Schema()
-export class Hotel {
+@Schema({ versionKey: false })
+export class HotelDocument extends AbstractDocument {
   @Prop()
   hotelId: string;
 
@@ -21,4 +19,4 @@ export class Hotel {
   booked: boolean;
 }
 
-export const HotelSchema = SchemaFactory.createForClass(Hotel);
+export const HotelSchema = SchemaFactory.createForClass(HotelDocument);

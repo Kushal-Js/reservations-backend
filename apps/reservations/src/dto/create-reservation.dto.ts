@@ -1,8 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsDate } from 'class-validator';
+import { IsDate, IsString, IsOptional } from 'class-validator';
 
 export class CreateReservationDto {
+  @IsString()
   hotelId: string;
+  @IsString()
+  @IsOptional()
   reservationId: string;
   @IsDate()
   @Type(() => Date)

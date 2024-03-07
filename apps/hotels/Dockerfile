@@ -11,12 +11,12 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
-COPY apps/auth apps/hotels
+COPY apps/hotels apps/hotels
 COPY libs libs
 
 RUN cd apps/hotels && pnpm install
 
-RUN pnpm run build auth
+RUN pnpm run build hotels
 
 FROM node:alpine as production
 
