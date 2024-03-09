@@ -11,6 +11,7 @@ services:
       - nesjs-network
     restart: always
   reservations:
+    image: kushalgaur123/reservations:latest
     build:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
@@ -28,6 +29,7 @@ services:
       - .:/usr/src/app
     restart: unless-stopped
   auth:
+    image: kushalgaur123/auth:latest
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
@@ -45,6 +47,7 @@ services:
       - .:/usr/src/app
     restart: unless-stopped
   hotels:
+    image: kushalgaur123/hotels:latest
     build:
       context: .
       dockerfile: ./apps/hotels/Dockerfile
@@ -62,6 +65,7 @@ services:
       - .:/usr/src/app
     restart: unless-stopped
   gateway:
+    image: kushalgaur123/gateway:latest
     build:
       context: .
       dockerfile: ./apps/gateway/Dockerfile
