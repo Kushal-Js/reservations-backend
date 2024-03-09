@@ -4,7 +4,7 @@ services:
     image : mongo
     container_name: mongodb
     volumes:
-      - ./usr/local/var/mongodb:/data/db
+      - ./database:/data/db
     ports:
       - 27017:27017
     networks:
@@ -54,6 +54,23 @@ services:
       - ./apps/hotels/.env
     ports:
       - '3002:3002'
+    networks:
+      - nesjs-network
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+    restart: unless-stopped
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: pnpm run start:dev gateway
+    env_file:
+      - ./apps/gateway/.env
+    ports:
+      - '3005:3005'
     networks:
       - nesjs-network
     depends_on:
