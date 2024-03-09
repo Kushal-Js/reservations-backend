@@ -1,0 +1,26 @@
+version 0.2
+
+phases:
+  pre-build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 734651757593.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - docker build -t reservations -f ./apps/reservations/Dockerfile .
+      - docker tag reservations:latest 734651757593.dkr.ecr.us-east-1.amazonaws.com/reservations:latest
+
+      - docker build -t auth -f ./apps/auth/Dockerfile .
+      - docker tag auth:latest 734651757593.dkr.ecr.us-east-1.amazonaws.com/auth:latest
+
+      - docker build -t hotels -f ./apps/hotels/Dockerfile .
+      - docker tag hotels:latest 734651757593.dkr.ecr.us-east-1.amazonaws.com/hotels:latest
+
+      - docker build -t gateway -f ./apps/gateway/Dockerfile .
+      - docker tag gateway:latest 734651757593.dkr.ecr.us-east-1.amazonaws.com/gateway:latest
+
+  post-build:
+    commands:
+      - docker push 734651757593.dkr.ecr.us-east-1.amazonaws.com/reservations:latest
+      - docker push 734651757593.dkr.ecr.us-east-1.amazonaws.com/auth:latest
+      - docker push 734651757593.dkr.ecr.us-east-1.amazonaws.com/hotels:latest
+      - docker push 734651757593.dkr.ecr.us-east-1.amazonaws.com/gateway:latest
