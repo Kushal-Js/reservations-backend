@@ -48,17 +48,16 @@ jobs:
           key: '${{ secrets.EC2_PRIVATE_KEY }}'
           script: |
 
-            #Pull from Docker Hub
-            #docker pull kushalgaur123/booking-api:latest
-            docker-compose pull --parallel
-
             #Install Docker Compose inside the remote EC2 instance
 
             sudo curl -L
-            "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname
-            -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
             sudo chmod +x /usr/local/bin/docker-compose
+
+            #Pull from Docker Hub
+            #docker pull kushalgaur123/booking-api:latest
+            docker-compose pull --parallel
 
 
             #Clear existing container and images with added project name, This will prevent the command from clearing containers of other docker compose file
