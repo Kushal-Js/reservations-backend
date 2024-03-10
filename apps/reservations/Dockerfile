@@ -2,7 +2,6 @@ FROM node:alpine As development
 
 WORKDIR /usr/src/app
 
-COPY .env ./
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY tsconfig.json tsconfig.json
@@ -12,6 +11,7 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
+COPY apps/reservations/.env apps/reservations/.env
 COPY apps/reservations apps/reservations
 COPY libs libs
 
@@ -24,7 +24,6 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY .env ./
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
