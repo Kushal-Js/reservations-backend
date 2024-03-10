@@ -11,7 +11,7 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
-COPY apps/reservations/.env apps/reservations/.env
+COPY .env app/reservations
 COPY apps/reservations apps/reservations
 COPY libs libs
 
