@@ -2,6 +2,7 @@ FROM node:alpine As development
 
 WORKDIR /usr/src/app
 
+COPY .env ./
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY tsconfig.json tsconfig.json
@@ -23,6 +24,7 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
+COPY .env ./
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
