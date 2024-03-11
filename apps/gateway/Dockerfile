@@ -30,7 +30,7 @@ COPY pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 
-RUN pnpm install --prod
+RUN cd apps/gateway && pnpm install
 
 COPY --from=development /usr/src/app/dist ./dist
 
