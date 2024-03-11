@@ -8,7 +8,7 @@ COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
-RUN pnpm install -g @nestjs/cli
+RUN pnpm install @nestjs/cli
 RUN pnpm install
 
 COPY . .
@@ -31,7 +31,7 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
-RUN pnpm install -g @nestjs/cli
+RUN pnpm install @nestjs/cli
 RUN pnpm install
 
 COPY . .
