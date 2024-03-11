@@ -36,6 +36,7 @@ services:
       - mongodb
     volumes:
       - .:/usr/src/app
+      - .:/usr/src/app/node_modules
     restart: unless-stopped
   auth:
     image: kushalgaur123/auth:latest
@@ -54,6 +55,7 @@ services:
       - mongodb
     volumes:
       - .:/usr/src/app
+      - .:/usr/src/app/node_modules
     restart: unless-stopped
   hotels:
     image: kushalgaur123/hotels:latest
@@ -72,6 +74,7 @@ services:
       - mongodb
     volumes:
       - .:/usr/src/app
+      - .:/usr/src/app/node_modules
     restart: unless-stopped
   gateway:
     image: kushalgaur123/gateway:latest
@@ -90,6 +93,7 @@ services:
       - mongodb
     volumes:
       - .:/usr/src/app
+      - .:/usr/src/app/node_modules
     restart: unless-stopped
 networks:
     nesjs-network:
