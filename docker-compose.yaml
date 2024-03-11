@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
       target: development
-    command: pnpm run start:dev reservations
+    command: pnpm run start reservations
     env_file:
       - .env
     ports:
@@ -44,7 +44,7 @@ services:
       context: .
       dockerfile: ./apps/auth/Dockerfile
       target: development
-    command: pnpm run start:dev auth
+    command: pnpm run start auth
     env_file:
       - .env
     ports:
@@ -63,7 +63,7 @@ services:
       context: .
       dockerfile: ./apps/hotels/Dockerfile
       target: development
-    command: pnpm run start:dev hotels
+    command: pnpm run start hotels
     env_file:
       - .env
     ports:
@@ -82,7 +82,7 @@ services:
       context: .
       dockerfile: ./apps/gateway/Dockerfile
       target: development
-    command: pnpm run start:dev gateway
+    command: pnpm run start gateway
     env_file:
       - .env
     ports:
