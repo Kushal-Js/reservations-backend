@@ -48,7 +48,7 @@ jobs:
           key: '${{ secrets.EC2_PRIVATE_KEY }}'
           script: |
 
-            #Delete old containers and images
+            #Delete old containers and images with old tags
             docker rm -vf $(docker ps -a -q) && docker rmi -f $(docker images -a -q)
 
             #Pull from Docker Hub
