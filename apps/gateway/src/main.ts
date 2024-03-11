@@ -12,7 +12,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useLogger(app.get(Logger));
-  await app.listen(configService.get('HTTP_GATEWAY_PORT'));
+  await app.listen(configService.get('GATEWAY_HTTP_PORT'));
   setApp(app);
 }
 bootstrap();

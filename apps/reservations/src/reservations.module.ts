@@ -54,7 +54,7 @@ import { ReservationResolver } from '../reservations.resolver';
           transport: Transport.TCP,
           options: {
             host: configService.get('AUTH_HOST'),
-            port: configService.get('AUTH_PORT'),
+            port: configService.get('AUTH_TCP_PORT'),
           },
         }),
         inject: [ConfigService],
@@ -65,7 +65,7 @@ import { ReservationResolver } from '../reservations.resolver';
           transport: Transport.TCP,
           options: {
             host: configService.get('HOTELS_HOST'),
-            port: configService.get('HOTELS_PORT'),
+            port: configService.get('HOTELS_TCP_PORT'),
           },
         }),
         inject: [ConfigService],

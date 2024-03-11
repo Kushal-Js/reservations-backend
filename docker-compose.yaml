@@ -12,13 +12,22 @@ services:
     restart: always
   reservations:
     image: kushalgaur123/reservations:latest
+    environment:
+      - PORT=3000
+      - AUTH_HOST=auth
+      - AUTH_PORT=3003
+      - HOTELS_HOST=hotels
+      - HOTELS_PORT=3004
+      - JWT_EXPIRATION=604800
+      - MONGODB_URI=mongodb://mongodb:27017/hotel
+      - MONGODB_ATLAS_URI=mongodb+srv://kushalgaur:mongodb_password@bookingcluster.sqm7w1b.mongodb.net/?retryWrites=true&w=majority&appName=bookingCluster
     build:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
       target: development
     command: pnpm run start:dev reservations
     env_file:
-      - ./apps/reservations/.env
+      - .env
     ports:
       - '3000:3000'
     networks:
@@ -36,7 +45,7 @@ services:
       target: development
     command: pnpm run start:dev auth
     env_file:
-      - ./apps/auth/.env
+      - .env
     ports:
       - '3001:3001'
     networks:
@@ -54,7 +63,7 @@ services:
       target: development
     command: pnpm run start:dev hotels
     env_file:
-      - ./apps/hotels/.env
+      - .env
     ports:
       - '3002:3002'
     networks:
@@ -72,7 +81,7 @@ services:
       target: development
     command: pnpm run start:dev gateway
     env_file:
-      - ./apps/gateway/.env
+      - .env
     ports:
       - '3005:3005'
     networks:
