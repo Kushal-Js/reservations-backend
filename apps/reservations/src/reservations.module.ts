@@ -42,9 +42,9 @@ import { ReservationResolver } from '../reservations.resolver';
         MONGODB_URI: Joi.string().required(),
         PORT: Joi.number().required(),
         AUTH_HOST: Joi.string().required(),
-        AUTH_PORT: Joi.number().required(),
+        AUTH_TCP_PORT: Joi.number().required(),
         HOTELS_HOST: Joi.string().required(),
-        HOTELS_PORT: Joi.number().required(),
+        HOTELS_TCP_PORT: Joi.number().required(),
       }),
     }),
     ClientsModule.registerAsync([
