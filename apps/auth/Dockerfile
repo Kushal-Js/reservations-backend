@@ -30,7 +30,7 @@ COPY pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 
-RUN cd apps/auth && pnpm install
+RUN pnpm install
 
 COPY --from=development /usr/src/app/dist ./dist
 
