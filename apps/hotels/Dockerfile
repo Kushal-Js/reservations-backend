@@ -11,6 +11,8 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
+COPY . .
+
 COPY apps/hotels apps/hotels
 COPY libs libs
 
@@ -31,6 +33,8 @@ COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
 
 RUN pnpm install
+
+COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 

@@ -9,7 +9,9 @@ COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
 
-RUN cd apps/reservations && pnpm install
+RUN pnpm install
+
+COPY . .
 
 COPY .env app/reservations
 COPY apps/reservations apps/reservations
@@ -30,6 +32,8 @@ COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
 
 RUN pnpm install
+
+COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 
