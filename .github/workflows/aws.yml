@@ -34,7 +34,7 @@ jobs:
           username: '${{ secrets.EC2_USERNAME }}'
           key: '${{ secrets.EC2_PRIVATE_KEY }}'
           port: 22
-          source: docker-compose.yaml,.env
+          source: docker-compose.yaml,.env,package.json,pnpm-lock.yaml,tsconfig.json,nest-cli.json
           target: /home/ubuntu
   Pull_and_deploy_in_ec2:
     runs-on: ubuntu-latest
