@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
-    command: pnpm run start:prod reservations
+    command: pnpm run start:prod
     env_file:
       - .env
     ports:
@@ -33,7 +33,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
-    command: pnpm run start:prod auth
+    command: pnpm run start:prod
     env_file:
       - .env
     ports:
@@ -52,7 +52,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/hotels/Dockerfile
-    command: pnpm run start:prod hotels
+    command: pnpm run start:prod
     env_file:
       - .env
     ports:
@@ -71,7 +71,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/gateway/Dockerfile
-    command: pnpm run start:prod gateway
+    command: pnpm run start:prod
     env_file:
       - .env
     ports:
