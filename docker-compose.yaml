@@ -12,88 +12,77 @@ services:
     restart: always
   reservations:
     image: kushalgaur123/reservations:latest
-    environment:
-      - PORT=3000
-      - AUTH_HOST=auth
-      - AUTH_TCP_PORT=3003
-      - HOTELS_HOST=hotels
-      - HOTELS_TCP_PORT=3004
-      - JWT_EXPIRATION=604800
-      - MONGODB_URI=mongodb://mongodb:27017/hotel
-      - MONGODB_ATLAS_URI=mongodb+srv://kushalgaur:mongodb_password@bookingcluster.sqm7w1b.mongodb.net/?retryWrites=true&w=majority&appName=bookingCluster
     build:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
-      target: development
-    command: pnpm run start reservations
+    command: pnpm run start:prod reservations
     env_file:
       - .env
     ports:
-      - '3000:3000'
+      - 3000:3000
     networks:
       - nesjs-network
     depends_on:
       - mongodb
     volumes:
       - .:/usr/src/app
-      - .:/usr/src/app/reservations/node_modules
+      - /usr/src/app/node_modules
     restart: unless-stopped
   auth:
     image: kushalgaur123/auth:latest
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
-      target: development
-    command: pnpm run start auth
+    command: pnpm run start:prod auth
     env_file:
       - .env
     ports:
-      - '3001:3001'
+      - 3001:3001
+      - 3003:3003
     networks:
       - nesjs-network
     depends_on:
       - mongodb
     volumes:
       - .:/usr/src/app
-      - .:/usr/src/app/auth/node_modules
+      - /usr/src/app/node_modules
     restart: unless-stopped
   hotels:
     image: kushalgaur123/hotels:latest
     build:
       context: .
       dockerfile: ./apps/hotels/Dockerfile
-      target: development
-    command: pnpm run start hotels
+    command: pnpm run start:prod hotels
     env_file:
       - .env
     ports:
-      - '3002:3002'
+      - 3002:3002
+      - 3004:3004
     networks:
       - nesjs-network
     depends_on:
       - mongodb
     volumes:
       - .:/usr/src/app
-      - .:/usr/src/app/hotels/node_modules
+      - /usr/src/app/node_modules
     restart: unless-stopped
   gateway:
     image: kushalgaur123/gateway:latest
     build:
       context: .
       dockerfile: ./apps/gateway/Dockerfile
-      target: development
-    command: pnpm run start gateway
+    command: pnpm run start:prod gateway
     env_file:
       - .env
     ports:
-      - '3005:3005'
+      - 3005:3005
     networks:
       - nesjs-network
     depends_on:
       - mongodb
     volumes:
       - .:/usr/src/app
-      - .:/usr/src/app/gateway/node_modules
+      - /usr/src/app/node_modules
     restart: unless-stopped
 networks:
     nesjs-network:

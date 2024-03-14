@@ -1,41 +1,36 @@
-FROM node:20-alpine As development
+FROM node:20-alpine AS development
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY package*.json ./
 COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
-RUN pnpm install @nestjs/cli
+RUN pnpm install glob rimraf
+
 RUN pnpm install
 
 COPY . .
+COPY libs ./dist/libs
+RUN pnpm run build
 
-COPY apps/hotels apps/hotels
-COPY libs libs
-
-RUN cd apps/hotels && pnpm install
-
-RUN pnpm run build hotels
-
-FROM node:20-alpine as production
+FROM node:20-alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY package*.json ./
 
 RUN npm install -g pnpm
-RUN pnpm install @nestjs/cli
 RUN pnpm install
+COPY libs ./dist/libs
 
 COPY . .
 
-COPY --from=development /usr/src/app/dist ./dist
+COPY --from=development /app/dist ./dist
+COPY --from=development /app/libs ./dist/libs
 
-CMD ["node", "dist/apps/hotels/main"]
+CMD ["node", "dist/main"]
